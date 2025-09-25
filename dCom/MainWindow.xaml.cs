@@ -41,7 +41,7 @@ namespace dCom
 
 		private void Window_Closed(object sender, EventArgs e)
 		{
-			(DataContext as IDisposable).Dispose();
-		}
-	}
+            (DataContext as IDisposable)?.Dispose();
+        }
+    }
 }

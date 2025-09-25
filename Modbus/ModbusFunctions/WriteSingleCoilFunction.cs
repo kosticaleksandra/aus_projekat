@@ -25,14 +25,61 @@ namespace Modbus.ModbusFunctions
         public override byte[] PackRequest()
         {
             //TO DO: IMPLEMENT
-            throw new NotImplementedException();
+
+
+            ModbusWriteCommandParameters writeParams = (ModbusWriteCommandParameters)CommandParameters;
+
+            byte[] request = new byte[12];
+            int dist = 0;
+
+            // Transaction ID (2 bajta)
+            Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)writeParams.TransactionId)), 0, request, dist, 2);
+            dist += 2;
+
+            // Protocol ID (2 bajta)
+            Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)writeParams.ProtocolId)), 0, request, dist, 2);
+            dist += 2;
+
+            // Length (2 bajta)
+            Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)writeParams.Length)), 0, request, dist, 2);
+            dist += 2;
+
+            // Unit ID (1 bajt)
+            request[dist++] = writeParams.UnitId;
+
+            // Function Code (1 bajt)
+            request[dist++] = writeParams.FunctionCode;
+
+            // Output Address (2 bajta)
+            Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)writeParams.OutputAddress)), 0, request, dist, 2);
+            dist += 2;
+
+            // Value (2 bajta)
+            Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)writeParams.Value)), 0, request, dist, 2);
+            dist += 2;
+
+            return request;
         }
 
         /// <inheritdoc />
         public override Dictionary<Tuple<PointType, ushort>, ushort> ParseResponse(byte[] response)
         {
             //TO DO: IMPLEMENT
-            throw new NotImplementedException();
+
+            Dictionary<Tuple<PointType, ushort>, ushort> result = new Dictionary<Tuple<PointType, ushort>, ushort>();
+
+            ModbusWriteCommandParameters writeParams = (ModbusWriteCommandParameters)CommandParameters;
+
+            // Adresa na koju je upisano (bajtovi 8 i 9)
+            ushort address = (ushort)((response[8] << 8) | response[9]);
+
+            // Vrijednost koja je upisana (bajtovi 10 i 11)
+            ushort value = (ushort)((response[10] << 8) | response[11]);
+
+            // Dodajemo u rezultat
+            result.Add(new Tuple<PointType, ushort>(PointType.DIGITAL_OUTPUT, address), value);
+
+            return result;
         }
     }
 }
