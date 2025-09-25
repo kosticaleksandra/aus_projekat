@@ -1,13 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dCom", "dCom\dCom.csproj", "{B5697AB8-53AC-4230-9B79-E43A6AA54436}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{823D1355-EFD0-481C-A0D9-FDA0C4EA37DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessingModule", "ProcessingModule\ProcessingModule.csproj", "{A61FACB3-147E-4FD9-88C1-A3F226157C23}"
+	ProjectSection(ProjectDependencies) = postProject
+		{65B26E48-3A6C-4BC4-AF16-F77809B5AFA2} = {65B26E48-3A6C-4BC4-AF16-F77809B5AFA2}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modbus", "Modbus\Modbus.csproj", "{65B26E48-3A6C-4BC4-AF16-F77809B5AFA2}"
 EndProject
@@ -36,5 +39,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {195B779D-B5D1-4A5B-AF40-B32E831774FE}
 	EndGlobalSection
 EndGlobal
