@@ -1,0 +1,13 @@
+﻿# VS / .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userprefs
+# JetBrains
+.idea/
+# Logs/OS
+*.log
+Thumbs.db
+.DS_Store
